@@ -30,6 +30,7 @@ namespace Microsoft.BotBuilderSamples
             Logger = logger;
         }
 
+
         public override async Task OnTurnAsync(ITurnContext turnContext, CancellationToken cancellationToken = default(CancellationToken))
         {
             await base.OnTurnAsync(turnContext, cancellationToken);

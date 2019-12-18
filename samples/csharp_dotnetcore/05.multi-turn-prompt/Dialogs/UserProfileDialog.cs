@@ -40,7 +40,7 @@ namespace Microsoft.BotBuilderSamples
             AddDialog(new TextPrompt(nameof(TextPrompt)));
             AddDialog(new NumberPrompt<int>(nameof(NumberPrompt<int>), AgePromptValidatorAsync));
             AddDialog(new ChoicePrompt(nameof(ChoicePrompt)));
-            AddDialog(new ConfirmPrompt(nameof(ConfirmPrompt)));
+            AddDialog(new FeedbackPrompt(nameof(FeedbackPrompt)));
             AddDialog(new AttachmentPrompt(nameof(AttachmentPrompt), PicturePromptValidatorAsync));
 
             // The initial child Dialog to run.
@@ -74,7 +74,7 @@ namespace Microsoft.BotBuilderSamples
             await stepContext.Context.SendActivityAsync(MessageFactory.Text($"Thanks {stepContext.Result}."), cancellationToken);
 
             // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
-            return await stepContext.PromptAsync(nameof(ConfirmPrompt), new PromptOptions { Prompt = MessageFactory.Text("Would you like to give your age?") }, cancellationToken);
+            return await stepContext.PromptAsync(nameof(FeedbackPrompt), new PromptOptions { Prompt = MessageFactory.Text("Would you like to give your age?") }, cancellationToken);
         }
 
         private async Task<DialogTurnResult> AgeStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
@@ -131,7 +131,7 @@ namespace Microsoft.BotBuilderSamples
             stepContext.Values["picture"] = ((IList<Attachment>)stepContext.Result)?.FirstOrDefault();
 
             // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
-            return await stepContext.PromptAsync(nameof(ConfirmPrompt), new PromptOptions { Prompt = MessageFactory.Text("Is this ok?") }, cancellationToken);
+            return await stepContext.PromptAsync(nameof(FeedbackPrompt), new PromptOptions { Prompt = MessageFactory.Text("Is this ok?") }, cancellationToken);
         }
 
         private async Task<DialogTurnResult> SummaryStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
